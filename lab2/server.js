@@ -32,7 +32,10 @@ app.get('/books', async (req, res) => {
                   left join author a on a.id = ba.aid
                   left join book b on b.id = ba.bid`;
     if(bookname){
-        sql+=`\rwhere b.name like '%${bookname}%'`        
+        sql = {
+            text: `\rwhere b.name like $1`,
+            values: ["%" + bookname + "%"]
+        }      
     }
     try{
         let data = await client.query(sql);
@@ -41,7 +44,9 @@ app.get('/books', async (req, res) => {
     catch(e)
     {
         console.log(e);
-        res.send(`error ${e.message}. <br/> SQL:${sql}`);
+        res.writeHead(500);
+		res.end('Internal server error');			
+		return;
     }
     
 })
@@ -66,7 +71,9 @@ app.post('/signin', async (req, res) => {
     catch(e)
     {
         console.log(e);
-        res.send(`error ${e.message}. <br/> SQL:${sql}`);
+        res.writeHead(500);
+		res.end('Internal server error');			
+		return;
     }
 
   })
