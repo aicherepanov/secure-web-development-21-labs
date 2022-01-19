@@ -50,7 +50,7 @@
 app.use(function (req, res, next) {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+    "img-src 'self'; script-src 'self';"
   );
   next();
 });
@@ -62,3 +62,14 @@ app.use(function (req, res, next) {
 
 ![alt text](img/Screenshot_13.png "Reflected XSS")
 
+#### 3.3 Session hijacking
+
+Наши куки используются только для поддержки сеанса, в JavaScript они не нужны, так что устанавим флаг ```HttpOnly``` = ```true```
+
+```js 
+res.cookie('userId', userId, {httpOnly: true, maxAge: oneDayToSeconds});
+```
+
+Теперь куки не доступны из JavaScript через свойства Document.cookie API
+
+![alt text](img/Screenshot_14.png "Session hijacking")

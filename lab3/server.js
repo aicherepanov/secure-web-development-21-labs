@@ -78,7 +78,7 @@ app.post('/signin', async (req, res) => {
         let userId = data.rows[0].result;
         if(data.rows.length>0 && userId){
             const oneDayToSeconds = 24 * 60 * 60;
-            res.cookie('userId', userId,{maxAge: oneDayToSeconds});
+            res.cookie('userId', userId, {httpOnly: true, maxAge: oneDayToSeconds});
             res.redirect('/books');
         }else
         {
