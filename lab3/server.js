@@ -12,6 +12,14 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+app.use(function (req, res, next) {
+    res.setHeader(
+      'Content-Security-Policy',
+      "img-src 'self'; script-src 'self';"
+    );
+    next();
+  });
+
 const client = new Client({ //Вставьте свои параметры БД
     user: 'postgres',
     host: 'localhost', 

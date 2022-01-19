@@ -37,6 +37,28 @@
 ### 3. Исправить уязвимости
 
 #### 3.1 Persisted (Stored) XSS
+
 В шаблонизаторе pug добавим экранирование ```td #{book.book}```. Чтобы внедренный JS не интерпретировался браузером:
 
-![alt text](img/Screenshot_11.png "Cookie hijacking")
+![alt text](img/Screenshot_11.png "Persisted (Stored) XSS")
+
+#### 3.2 Reflected XSS и Cookie Injection
+
+Добавим заголовок Content-Security-Policy в Express. Это гарантирует, что заголовок будет включен в каждый ответ сервера:
+
+```js
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+  );
+  next();
+});
+```
+
+![alt text](img/Screenshot_12.png "Reflected XSS")
+
+Заголовок работает должным образом, и все внешние источники, которые мы включили в страницу, были заблокированы для загрузки:
+
+![alt text](img/Screenshot_13.png "Reflected XSS")
+
