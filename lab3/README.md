@@ -33,3 +33,10 @@
 Похищение cookie любым из 3-х способов приведет к захвату сессии
 
 ![alt text](img/Screenshot_10.png "Cookie hijacking")
+
+### 3. Исправить уязвимости
+
+#### 3.1 Persisted (Stored) XSS
+В шаблонизаторе pug добавим экранирование ```td #{book.book}```. Чтобы внедренный JS не интерпретировался браузером:
+
+![alt text](img/Screenshot_11.png "Cookie hijacking")

@@ -26,7 +26,7 @@ html
                 tr
                     td #{book.id}
                     td #{book.author}
-                    td !{book.book}
+                    td #{book.book}
         h1 Добавить книгу
         form(action='addbook', method='POST')
             <select id="author" name="author">
